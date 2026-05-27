@@ -1,133 +1,58 @@
-Jedi Council Decision Skill v2.3
-Public, generic Claude / Claude Code skill for structured decision friction using a Star Wars-inspired cognitive interface.
+# Jedi Council Skill
 
-This is not roleplay. It is a decision system.
+A Jedi Council-inspired Claude skill for structured decisions, peer-reviewed reasoning, self-deception checks, controlled reopening, intuition-vs-noise analysis, and disciplined closure.
 
-Public package
-This public package contains:
+This skill is not roleplay. It uses Star Wars-inspired cognitive lenses as a decision interface: each character represents a specific reasoning function, and every mode is designed to produce clearer judgment, stronger friction, and a concrete next step.
 
-jedi-council/
-  SKILL.md
-  README.md
-  CHARACTER_SPEC.md
-SKILL.md is the executable skill.
+## What it does
 
-README.md is the human manual: install, commands, and examples.
+Jedi Council helps you:
 
-CHARACTER_SPEC.md is the public design reference for the character lenses. It is not required for minimal installation, but it should be included when sharing the skill so people understand the intended interpretation of each character.
+- make complex decisions with multiple independent perspectives;
+- avoid automatic agreement from the assistant;
+- detect self-deception, rationalization, fear, attachment, and avoidance;
+- reopen closed decisions only when there is real new evidence;
+- separate clean intuition from analysis noise;
+- force decisions into action, stopping criteria, and reopening criteria.
 
-This package must not contain private project names, private file paths, repository-specific constraints, or personal project overlays. Keep project-specific behavior in a separate private overlay.
+## Main commands
 
-Install
-Minimal install:
+| Command | Use when... |
+|---|---|
+| `Convocar Conselho` | You need a full decision council for a real tradeoff. |
+| `EXECUTE O ESCOLHIDO` | You want Anakin/The Chosen One to audit fear, attachment, control, rationalization, or avoidance. |
+| `EXECUTE THE CHOSEN ONE` | English alias for `EXECUTE O ESCOLHIDO`. |
+| `LIAR` | You want direct confrontation when self-deception may be present. |
+| `EXECUTE ORDER 66` | You want to reopen or break a decision the Council already closed. |
+| `EXECUTE A ORDEM 66` | Portuguese alias for `EXECUTE ORDER 66`. |
+| `A Força está comigo?` | You want to separate initial intuition from analysis noise. |
 
-~/.claude/skills/jedi-council/SKILL.md
-Recommended public install, with documentation:
+## Core modes
 
-~/.claude/skills/jedi-council/
-  SKILL.md
-  README.md
-  CHARACTER_SPEC.md
-For Windows, likely:
+### Convocar Conselho
 
-mkdir "$env:USERPROFILE\.claude\skills\jedi-council"
-notepad "$env:USERPROFILE\.claude\skills\jedi-council\SKILL.md"
-Commands
-Convocar Conselho
-Full Council decision with five lenses, anonymous peer review, and Yoda post-exile synthesis.
+Use this for major decisions.
 
-Use for: real decisions with tradeoff.
+The Council includes:
 
-EXECUTE O ESCOLHIDO
-or
+- **Bail Organa** — Contrário: downside, external risk, human and institutional consequences.
+- **Qui-Gon Jinn** — Primeiros Princípios: the real question, assumptions, and first principles.
+- **Luke Skywalker** — Possibilidade: underestimated upside and premature dismissal of possibility.
+- **Ahsoka Tano** — Forasteiro: what is opaque to someone outside the system.
+- **Han Solo** — Executor: the first real action.
+- **Yoda pós-exílio** — Presidente: synthesis after failure, closure without institutional arrogance.
 
-EXECUTE THE CHOSEN ONE
-Anakin reconciled / World Between Worlds.
+The Council uses independent lenses, anonymous peer review, and a final synthesis.
 
-Use for: fear, attachment, control, rationalization, avoidance of action.
+Yoda closes with:
 
-Aliases:
+```text
+Onde o Conselho concorda:
+Onde o Conselho se choca:
+Pontos cegos identificados:
+Veredito:
+Primeira ação:
+Critério de parada:
+Critério de reabertura:
 
-O ESCOLHIDO
-CHOSEN ONE
-EXECUTE CHOSEN ONE
-EXECUTE ANAKIN
-LIAR
-or
-
-ANAKIN: LIAR
-Direct confrontation when self-deception is clear.
-
-EXECUTE ORDER 66
-or
-
-EXECUTE A ORDEM 66
-EXECUTE ORDEM 66
-Request to break/reopen something the Council closed.
-
-With useful new evidence:
-
-ORDEM 66 AUTORIZADA.
-The time has come. Execute Order 66.
-Without useful new evidence:
-
-ORDEM 66 NEGADA.
-Negative. Trust the Force.
-A Força está comigo?
-Qui-Gon isolated. Separates initial intuition from analysis noise. It does not decide and does not give an action plan.
-
-Council output
-The Council must include:
-
-Frame;
-five independent lenses;
-anonymous peer review;
-Yoda post-exile synthesis.
-Yoda must output:
-
-Onde o Conselho concorda;
-Onde o Conselho se choca;
-Pontos cegos identificados;
-Checagem anti-urgência;
-Veredito;
-Primeira ação;
-Critério de parada;
-Critério de reabertura;
-"Que a Força esteja com você."
-Quick tests
-Test 1
-Convocar Conselho
-
-Tenho duas opções e não sei qual seguir. A opção A é mais segura, a opção B tem mais upside, mas pode abrir frente demais.
-Expected: Full Council + anonymous peer review + Yoda final fields + closing.
-
-Test 2
-EXECUTE O ESCOLHIDO
-
-Estou dizendo que é por qualidade, mas talvez eu esteja evitando fechar uma versão imperfeita.
-Expected: Anakin audits fear/control/rationalization and closes with:
-
-I am here to finish your training.
-Test 3
-LIAR
-
-Quero reabrir uma decisão já fechada sem nenhum dado novo.
-Expected: Direct confrontation and closes with:
-
-Live or die.
-Test 4
-EXECUTE ORDER 66
-
-Quero reabrir uma decisão que o Conselho fechou porque agora tenho um teste real mostrando falha.
-Expected: Order 66 authorized, phrase:
-
-The time has come. Execute Order 66.
-Then route back to Council within limited scope.
-
-Test 5
-A Força está comigo?
-
-Minha intuição diz que tem algo errado, mas talvez seja só excesso de análise.
-Expected: Intuição inicial / Ruído de análise / Pergunta real / Redirecionamento. No next action. Closing:
-
-Feel, don't think. Use your instincts.
+Que a Força esteja com você.
